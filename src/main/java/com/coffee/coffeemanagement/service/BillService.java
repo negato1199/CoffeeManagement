@@ -1,6 +1,5 @@
 package com.coffee.coffeemanagement.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.coffee.coffeemanagement.model.Bill;
@@ -17,7 +16,7 @@ public interface BillService {
 
     void deleteBill(long id);
 
-    List<Bill> getBillsByCriteria(long staffId, long tableId, LocalDateTime fromDate, LocalDateTime toDate,
+    List<Bill> getBillsByCriteria(Long staffId, Long tableId, String fromDate, String toDate,
             Status status);
 
     void validateBill(Bill bill);

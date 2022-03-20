@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.coffee.coffeemanagement.model.enums.Status;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +37,7 @@ public class Bill {
     private CoffeeTable table;
 
     @Column(name = "Ngay_Lap", columnDefinition = "DATETIME")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate = LocalDateTime.now();
 
     @Column(name = "Tong_Cong", nullable = false)

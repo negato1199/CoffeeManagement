@@ -71,9 +71,10 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public void validateStaff(Staff staff) {
-        if (staff.getName().isBlank() || Objects.isNull(staff.getGender())
+        if (Objects.isNull(staff.getName()) || staff.getName().isBlank() || Objects.isNull(staff.getGender())
                 || Objects.isNull(staff.getBirthDate()) || Objects.isNull(staff.getPosition())
-                || staff.getAccount().isBlank() || staff.getPassword().isBlank()) {
+                || Objects.isNull(staff.getAccount()) || staff.getAccount().isBlank()
+                || Objects.isNull(staff.getPassword()) || staff.getPassword().isBlank()) {
             throw new EmptyInputException("601", "Input Fields are empty");
         }
 

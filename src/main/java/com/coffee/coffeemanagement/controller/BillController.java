@@ -1,6 +1,5 @@
 package com.coffee.coffeemanagement.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.coffee.coffeemanagement.model.Bill;
@@ -9,13 +8,7 @@ import com.coffee.coffeemanagement.service.BillService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/bills")
@@ -34,18 +27,25 @@ public class BillController {
     }
 
     @GetMapping
-    public List<Bill> getAllBills() {
-        return billService.getAllBills();
-    }
-
-    @GetMapping(params = { "staffId", "tableId", "fromDate", "toDate", "status" })
-    public List<Bill> getBillsByAccountAndPassword(@RequestParam long staffId, @RequestParam long tableId,
-            @RequestParam LocalDateTime fromDate, @RequestParam LocalDateTime toDate, @RequestParam Status status) {
+    public List<Bill> getBillsByByCriteria(@RequestParam(required = false) Long staffId,
+            @RequestParam(required = false) Long tableId, @RequestParam(required = false) String fromDate,
+            @RequestParam(required = false) String toDate, @RequestParam(required = false) Status status) {
         return billService.getBillsByCriteria(staffId, tableId, fromDate, toDate, status);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Bill> getBillById(@PathVariable("id") long id) {
         return new ResponseEntity<Bill>(billService.getBillById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Bill> updateBill(@PathVariable("id") long id, @RequestBody Bill bill) {
+        return new ResponseEntity<Bill>(billService.updateBill(id, bill), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteBill(@PathVariable("id") long id) {
+        billService.deleteBill(id);
+        return new ResponseEntity<String>("Bill deleted successfully.", HttpStatus.OK);
     }
 }

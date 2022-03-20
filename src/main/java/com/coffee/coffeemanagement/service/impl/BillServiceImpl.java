@@ -1,6 +1,5 @@
 package com.coffee.coffeemanagement.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,7 +56,7 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<Bill> getBillsByCriteria(long staffId, long tableId, LocalDateTime fromDate, LocalDateTime toDate,
+    public List<Bill> getBillsByCriteria(Long staffId, Long tableId, String fromDate, String toDate,
             Status status) {
         List<Bill> bills = billRepository.getBillsByCriteria(staffId, tableId, fromDate, toDate, status);
         return bills;

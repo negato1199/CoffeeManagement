@@ -1,5 +1,6 @@
 package com.coffee.coffeemanagement.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class BillDetail {
     @Column(name = "Ma_CT_Hoa_Don")
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "Ma_Hoa_Don", nullable = false)
     private Bill bill;
 
