@@ -1,6 +1,6 @@
 package com.coffee.coffeemanagement.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,31 +14,34 @@ import javax.persistence.Table;
 import com.coffee.coffeemanagement.model.enums.Status;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "bill")
+@Table(name = "Hoa_Don")
 public class Bill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Ma_Hoa_Don")
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "staff_id", nullable = false)
+    @JoinColumn(name = "Ma_Nhan_Vien")
     private Staff staff;
 
     @ManyToOne
-    @JoinColumn(name = "table_id", nullable = false)
+    @JoinColumn(name = "Ma_Ban")
     private CoffeeTable table;
 
-    @Column(name = "creationDate", nullable = false)
-    private LocalDate creationDate;
+    @Column(name = "Ngay_Lap", columnDefinition = "DATETIME")
+    private LocalDateTime creationDate = LocalDateTime.now();
 
-    @Column(name = "total", nullable = false)
+    @Column(name = "Tong_Cong", nullable = false)
     private double total = 0d;
 
-    @Column(name = "status", nullable = false)
-    private Status status;
+    @Column(name = "Trang_Thai", nullable = false)
+    private Status status = Status.NOT_PAID;
 
 }

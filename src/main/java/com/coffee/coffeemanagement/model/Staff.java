@@ -10,50 +10,54 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.coffee.coffeemanagement.model.converter.GenderConverter;
 import com.coffee.coffeemanagement.model.enums.Gender;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "staff")
+@Table(name = "Nhan_Vien")
 public class Staff {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Ma_Nhan_Vien")
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "Ten_Nhan_Vien", nullable = false)
     private String name;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "Gioi_Tinh", nullable = false)
     @Convert(converter = GenderConverter.class)
     private Gender gender;
 
-    @Column(name = "birthDate", nullable = false)
+    @Column(name = "Ngay_Sinh", nullable = false, columnDefinition = "DATE")
     private LocalDate birthDate;
 
-    @Column(name = "phoneNum")
+    @Column(name = "So_DT")
     private String phoneNum;
 
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
 
-    @Column(name = "start", nullable = false)
-    private LocalDate start;
+    @Column(name = "Ngay_Bat_Dau", nullable = false, columnDefinition = "DATE")
+    private LocalDate start = LocalDate.now();
 
-    @Column(name = "basicSalary", nullable = false)
+    @Column(name = "Luong", nullable = false)
     private double basicSalary = 0d;
 
     @ManyToOne
-    @JoinColumn(name = "position_Id", nullable = false)
+    @JoinColumn(name = "Ma_Chuc_Vu", nullable = false)
     private Position position;
 
-    @OneToOne
-    @JoinColumn(name = "account_Id", nullable = false)
-    private Account account;
+    @Column(name = "Tai_khoan", nullable = false, unique = true)
+    private String account;
+
+    @Column(name = "Mat_khau", nullable = false)
+    private String password;
 }

@@ -2,6 +2,8 @@ package com.coffee.coffeemanagement.service.impl;
 
 import java.util.List;
 
+import com.coffee.coffeemanagement.exception.DuplicatedException;
+import com.coffee.coffeemanagement.exception.EmptyInputException;
 import com.coffee.coffeemanagement.exception.ResourceNotFoundException;
 import com.coffee.coffeemanagement.model.Category;
 import com.coffee.coffeemanagement.repository.CategoryRepository;
@@ -21,6 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category saveCategory(Category category) {
+        validateCategory(category);
+        checkDuplicateCategory(category);
         return categoryRepository.save(category);
     }
 
@@ -36,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category updateCategory(long id, Category category) {
+        validateCategory(category);
         Category existingCategory = getCategoryById(id);
         existingCategory.setName(category.getName());
         categoryRepository.save(existingCategory);
@@ -48,4 +53,22 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById(id);
     }
 
+    @Override
+    public List<Category> getCategoryByName(String name) {
+        return categoryRepository.getCategoriesByName(name);
+    }
+
+    @Override
+    public void validateCategory(Category category) {
+        if (category.getName().isBlank()) {
+            throw new EmptyInputException("601", "Input Fields are empty");
+        }
+    }
+
+    @Override
+    public void checkDuplicateCategory(Category category) {
+        List<Category> categories = getCategoryByName(category.getName());
+        if (!categories.isEmpty())
+            throw new DuplicatedException("409", "This item is already existed");
+    }
 }

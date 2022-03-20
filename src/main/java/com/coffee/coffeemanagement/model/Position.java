@@ -8,20 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "position")
+@Table(name = "Chuc_Vu")
 public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Ma_Chuc_Vu")
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "Ten_Chuc_Vu", nullable = false)
     private String name;
 
-    @Column(name = "coeficient", nullable = false)
+    @Column(name = "He_So_Luong", nullable = false)
     private int coefficient = 1;
 
 }

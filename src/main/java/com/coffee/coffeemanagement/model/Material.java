@@ -9,25 +9,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.coffee.coffeemanagement.model.enums.Measure;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Chi_Tiet_Phan_Quyen")
-public class PermissionDetail {
+@Table(name = "Nguyen_Lieu")
+public class Material {
 
     @Id
+    @Column(name = "Ma_Nguyen_Lieu")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Ma_CT_Phan_Quyen")
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "Ma_Chuc_Vu", nullable = false)
-    private Permission permission;
+    @Column(name = "Ten_Nguyen_Lieu", nullable = false)
+    private String name;
+
+    @Column(name = "Don_Vi_Tinh", nullable = false)
+    private Measure measure;
 
     @ManyToOne
-    @JoinColumn(name = "Ma_Phan_Quyen", nullable = false)
-    private Position position;
+    @JoinColumn(name = "Ma_Kho")
+    private Storage storage;
+
+    @ManyToOne
+    @JoinColumn(name = "Ma_Thuc_Uong")
+    private Drink drink;
 }

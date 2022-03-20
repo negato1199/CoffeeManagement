@@ -8,17 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "permission")
+@Table(name = "Phan_Quyen")
 public class Permission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Ma_Phan_Quyen")
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "Ten_Phan_Quyen", nullable = false)
     private String name;
 
 }

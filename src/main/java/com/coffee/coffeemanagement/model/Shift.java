@@ -11,26 +11,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "shift")
+@Table(name = "Ca_Truc")
 public class Shift {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Ma_Ca_Truc")
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "Ten_Ca_Truc", nullable = false)
     private String name;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "Ngay_Truc", nullable = false)
     private LocalDate date;
 
-    @Column(name = "start_time", nullable = false)
+    @Column(name = "Gio_Bat_Dau", nullable = false)
     private LocalTime from;
 
-    @Column(name = "end_time", nullable = false)
+    @Column(name = "Gio_Ket_Thuc", nullable = false)
     private LocalTime to;
 
 }
