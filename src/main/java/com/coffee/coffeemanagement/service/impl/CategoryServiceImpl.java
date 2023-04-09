@@ -43,6 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
         validateCategory(category);
         Category existingCategory = getCategoryById(id);
         existingCategory.setName(category.getName());
+        existingCategory.setImgUrl(category.getImgUrl());
         categoryRepository.save(existingCategory);
         return existingCategory;
     }

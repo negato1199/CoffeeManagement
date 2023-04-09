@@ -28,4 +28,7 @@ public class Category {
 
     @Column(name = "Ten_Loai", nullable = false)
     private String name;
+
+    @Column(name = "Hinh_Anh")
+    private String imgUrl;
 }

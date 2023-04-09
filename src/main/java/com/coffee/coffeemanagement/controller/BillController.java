@@ -6,10 +6,13 @@ import com.coffee.coffeemanagement.model.Bill;
 import com.coffee.coffeemanagement.model.enums.Status;
 import com.coffee.coffeemanagement.service.BillService;
 
+import io.micrometer.core.instrument.Meter.Id;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("api/bills")
 public class BillController {
@@ -41,6 +44,12 @@ public class BillController {
     @PutMapping("{id}")
     public ResponseEntity<Bill> updateBill(@PathVariable("id") long id, @RequestBody Bill bill) {
         return new ResponseEntity<Bill>(billService.updateBill(id, bill), HttpStatus.OK);
+    }
+
+    @PutMapping("/pay/{id}")
+    public ResponseEntity<String> payBill(@PathVariable("id") long id) {
+        billService.payBill(id);
+        return new ResponseEntity<String>("Bill paid successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

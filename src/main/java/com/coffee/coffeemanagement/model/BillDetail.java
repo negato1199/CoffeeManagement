@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.coffee.coffeemanagement.model.enums.DrinkStage;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +33,18 @@ public class BillDetail {
     @ManyToOne
     @JoinColumn(name = "Ma_Thuc_Uong", nullable = false)
     private Drink drink;
+
+    @Column(name = "Trang_Thai")
+    private DrinkStage stage = DrinkStage.COLD;
+
+    @Column(name = "Kich_Thuoc")
+    private String size;
+
+    @Column(name = "Luong_Duong")
+    private int sugarPercentage = 100;
+
+    @Column(name = "Luong_Da")
+    private int icePercentage = 100;
 
     @Column(name = "So_Luong", nullable = false)
     private int count = 0;

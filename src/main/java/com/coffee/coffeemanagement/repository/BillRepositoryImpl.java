@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import com.coffee.coffeemanagement.model.*;
 import com.coffee.coffeemanagement.model.enums.Status;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BillRepositoryImpl implements BillCustomRepository {
@@ -43,14 +44,19 @@ public class BillRepositoryImpl implements BillCustomRepository {
             predicates.add(cb.equal(table.get(CoffeeTable_.ID), tableId));
         }
 
-        if (Objects.nonNull(fromDate) && !fromDate.isBlank()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+        if (StringUtils.isNotBlank(fromDate)) {
             LocalDateTime from = LocalDateTime.parse(fromDate, formatter);
-            if (Objects.nonNull(toDate) && !toDate.isBlank()) {
+            if (StringUtils.isNotBlank(toDate)) {
                 LocalDateTime to = LocalDateTime.parse(toDate, formatter);
                 predicates.add(cb.between(bill.get(Bill_.CREATION_DATE), from, to));
             } else {
                 predicates.add(cb.between(bill.get(Bill_.CREATION_DATE), from, LocalDateTime.now()));
+            }
+        } else {
+            if (StringUtils.isNotBlank(toDate)) {
+                LocalDateTime to = LocalDateTime.parse(toDate, formatter);
+                predicates.add(cb.lessThanOrEqualTo(bill.get(Bill_.CREATION_DATE), to));
             }
         }
 

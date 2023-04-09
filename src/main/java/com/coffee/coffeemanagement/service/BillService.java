@@ -14,10 +14,16 @@ public interface BillService {
 
     Bill updateBill(long id, Bill bill);
 
+    void updateBillTotal(long id, double amount);
+
+    void payBill(long id);
+
     void deleteBill(long id);
 
     List<Bill> getBillsByCriteria(Long staffId, Long tableId, String fromDate, String toDate,
             Status status);
 
     void validateBill(Bill bill);
+
+    boolean checkBillExist(long id);
 }

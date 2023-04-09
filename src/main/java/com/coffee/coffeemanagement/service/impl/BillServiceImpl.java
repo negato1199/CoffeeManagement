@@ -49,6 +49,12 @@ public class BillServiceImpl implements BillService {
         return existingBill;
     }
 
+    public void payBill(long id) {
+        Bill existingBill = getBillById(id);
+        existingBill.setStatus(Status.PAID);
+        billRepository.save(existingBill);
+    }
+
     @Override
     public void deleteBill(long id) {
         getBillById(id);
@@ -58,16 +64,28 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Bill> getBillsByCriteria(Long staffId, Long tableId, String fromDate, String toDate,
             Status status) {
-        List<Bill> bills = billRepository.getBillsByCriteria(staffId, tableId, fromDate, toDate, status);
-        return bills;
+        return billRepository.getBillsByCriteria(staffId, tableId, fromDate, toDate, status);
     }
 
     @Override
     public void validateBill(Bill bill) {
-        if (Objects.isNull(bill.getStaff()) || Objects.isNull(bill.getTable())) {
+        if (Objects.isNull(bill.getStaff())) {
             throw new EmptyInputException("601", "Input Fields are empty");
         }
 
+    }
+
+    @Override
+    public boolean checkBillExist(long id) {
+        return billRepository.existsById(id);
+    }
+
+    @Override
+    public void updateBillTotal(long id, double amount) {
+        Bill existingBill = getBillById(id);
+        double total = existingBill.getTotal();
+        existingBill.setTotal(total + amount);
+        billRepository.save(existingBill);
     }
 
 }

@@ -37,7 +37,7 @@ public class Bill {
     private CoffeeTable table;
 
     @Column(name = "Ngay_Lap", columnDefinition = "DATETIME")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate = LocalDateTime.now();
 
     @Column(name = "Tong_Cong", nullable = false)

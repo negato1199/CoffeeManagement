@@ -44,7 +44,9 @@ public class DrinkServiceImpl implements DrinkService {
         validateDrink(drink);
         Drink existingDrink = getDrinkById(id);
         existingDrink.setName(drink.getName());
-        existingDrink.setCategory(drink.getCategory());
+        existingDrink.setDescription(drink.getDescription());
+        existingDrink.setImgUrl(drink.getImgUrl());
+        existingDrink.getCategory().setId(existingDrink.getCategory().getId());
         existingDrink.setPrice(drink.getPrice());
         drinkRepository.save(existingDrink);
         return existingDrink;

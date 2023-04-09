@@ -3,19 +3,19 @@ package com.coffee.coffeemanagement.model.enums;
 import lombok.Getter;
 
 @Getter
-public enum ShiftStatus {
-    WORK(0), OFF(1), LATE(2), OFF_SOON(3);
+public enum DrinkStage {
+    HOT(0), COLD(1);
 
     private int value;
 
-    private ShiftStatus(int value) {
+    private DrinkStage(int value) {
         this.value = value;
     }
 
-    public static ShiftStatus getShiftStatus(Integer value) {
+    public static DrinkStage getDrinkStage(Integer value) {
         if (value == null)
             return null;
-        for (ShiftStatus g : values()) {
+        for (DrinkStage g : values()) {
             if (g.getValue() == value)
                 return g;
         }

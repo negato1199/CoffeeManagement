@@ -45,6 +45,7 @@ public class CoffeeTableServiceImpl implements CoffeeTableService {
         CoffeeTable existingTable = getTableById(id);
         existingTable.setArea(table.getArea());
         existingTable.setStatus(table.getStatus());
+        coffeeTableRepository.save(existingTable);
         return existingTable;
     }
 
@@ -65,8 +66,6 @@ public class CoffeeTableServiceImpl implements CoffeeTableService {
 
     @Override
     public List<CoffeeTable> getTablesByStatus(TableStatus status) {
-        // TableStatusConverter converter = new TableStatusConverter();
-        // int code = converter.convertToDatabaseColumn(status);
         List<CoffeeTable> coffeeTables = coffeeTableRepository.getCoffeeTablesByStatus(status);
         if (coffeeTables.isEmpty())
             throw new ResourceNotFoundException("Coffee Table", "Status", status);
