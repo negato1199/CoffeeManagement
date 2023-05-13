@@ -60,4 +60,7 @@ public class Staff {
 
     @Column(name = "Mat_khau", nullable = false)
     private String password;
+
+    @Column(name = "Hinh_anh")
+    private String imgUrl;
 }

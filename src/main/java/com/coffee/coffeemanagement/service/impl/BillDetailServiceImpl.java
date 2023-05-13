@@ -43,7 +43,7 @@ public class BillDetailServiceImpl implements BillDetailService {
             billDetail.setCount(1);
             BillDetail savedBillDetail = billDetailRepository.save(billDetail);
             double amount = Optional.ofNullable(billDetail).map(BillDetail::getDrink).map(Drink::getPrice).orElse(0d);
-            billService.updateBillTotal(billId, amount);
+            billService.updateBillTotal(billId, amount * 1.1);
             return savedBillDetail;
         }
         return increaseCount(existingBillDetail);
@@ -104,7 +104,7 @@ public class BillDetailServiceImpl implements BillDetailService {
         billDetail.setCount(billDetail.getCount() + 1);
         billDetailRepository.save(billDetail);
         double amount = Optional.ofNullable(billDetail).map(BillDetail::getDrink).map(Drink::getPrice).orElse(0d);
-        billService.updateBillTotal(billDetail.getBill().getId(), amount);
+        billService.updateBillTotal(billDetail.getBill().getId(), amount * 1.1);
         return billDetail;
     }
 }

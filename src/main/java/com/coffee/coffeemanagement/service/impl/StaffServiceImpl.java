@@ -54,6 +54,7 @@ public class StaffServiceImpl implements StaffService {
         existingStaff.setPosition(staff.getPosition());
         existingStaff.setAccount(staff.getAccount());
         existingStaff.setPassword(staff.getPassword());
+        existingStaff.setImgUrl(staff.getImgUrl());
         staffRepository.save(existingStaff);
         return existingStaff;
     }
